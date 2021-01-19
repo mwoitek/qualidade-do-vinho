@@ -1,0 +1,35 @@
+Introdução
+----------
+
+O objetivo deste projeto é mostrar como a ciência de dados pode ser
+aplicada no processo de controle de qualidade. Em muitos casos
+importantes, as empresas conhecem detalhadamente as propriedades
+químicas dos produtos que elas comercializam. Então uma pergunta natural
+é a seguinte: podemos usar esse tipo de dado para melhorar a qualidade
+desses produtos? Essa é a questão que motiva esta investigação.
+
+Conjunto de Dados
+-----------------
+
+Neste projeto, vamos considerar um produto específico, o vinho.
+Escolhemos estudar essa bebida, pois os dados necessários estão
+disponíveis na Internet. Especificamente, esses dados podem ser
+encontrados no [Machine Learning
+Repository](https://archive.ics.uci.edu/ml/datasets.php), um site
+mantido pela Universidade da Califórnia em Irvine. Esse site é bem
+conhecido por disponibilizar conjuntos de dados para análise.
+
+O conjunto de dados que vamos utilizar neste projeto é o [Wine Quality
+Data Set](https://archive.ics.uci.edu/ml/datasets/Wine+Quality). Esses
+dados foram compilados por P. Cortez, A. Cerdeira, F. Almeida, T. Matos
+e J. Reis. Mais detalhes sobre o processo de coleta desses dados podem
+ser encontrados no artigo de pesquisa que eles escreveram, “Modeling
+wine preferences by data mining from physicochemical properties”. Abaixo
+fornecemos dois links para esse artigo:
+
+-   [Versão
+    paga](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub);
+-   [Versão gratuita](http://www3.dsi.uminho.pt/pcortez/wine5.pdf).
+
+**Observação:** Todos os links apresentados acima estavam funcionando
+quando isto foi escrito (19/01/2021).
