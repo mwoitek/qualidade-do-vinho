@@ -10,6 +10,7 @@ library(dplyr)
 library(knitr)
 library(magrittr)
 library(readr)
+library(tibble)
 
 opts_chunk$set(echo = FALSE)
 ```
@@ -48,5 +49,54 @@ num_obs <- bind_rows(num_obs, linha_total)
 
 ## Cria a tabela
 num_obs$type <- recode(num_obs$type, "red" = "Tinto", "white" = "Branco")
-kable(num_obs, col.names = c("Tipo", "Observações"))
+kable(num_obs, col.names = c("Tipo", "Observações"), align = "cc")
+```
+
+Perceba que o número total de observações apresentado no site da UCI é menor.
+Naquela página, são contabilizadas apenas as observações relacionadas com os
+vinhos brancos.
+
+### Missing Values
+
+Os pesquisadores que compilaram os dados afirmaram que este data set não possui
+valores faltando. É uma boa ideia confirmar que essa afirmação é verdadeira.
+A quantidade de missing values para cada coluna do conjunto de dados pode ser
+vista na próxima tabela.
+
+```{r missing_values}
+## Vetor com os nomes das colunas
+nomes <- colnames(vinhos)[-1]
+
+## Vetor com o número de missing values para cada coluna
+num_missing <- c()
+for (i in seq_along(nomes)) {
+  num_missing <- c(num_missing, sum(is.na(vinhos[[i + 1]])))
+}
+
+## Cria a tabela
+kable(
+  tibble(nomes, num_missing),
+  col.names = c("Coluna", "Missing Values"),
+  align = "cc"
+)
+```
+
+### Distribuição dos Dados
+
+Para cada vinho no conjunto de dados, há `r length(colnames(vinhos)) - 2`
+medidas associadas com as propriedades químicas da bebida. É importante
+analisar a distribuição de cada uma dessas variáveis numéricas. Então vamos
+começar calculando para cada variável as seguintes quantidades:
+
+* Valor mínimo;
+* Primeiro quartil;
+* Mediana;
+* Média;
+* Terceiro quartil;
+* Valor máximo.
+
+Os resultados que obtivemos estão organizados na tabela que segue.
+
+```{r summary}
+##
 ```
