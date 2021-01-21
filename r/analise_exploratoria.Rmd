@@ -1,0 +1,52 @@
+---
+title: "Wine Quality Data Set: Análise Exploratória"
+author: "Marcio Woitek"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+## Importa as bibliotecas necessárias
+library(dplyr)
+library(knitr)
+library(magrittr)
+library(readr)
+
+opts_chunk$set(echo = FALSE)
+```
+
+## Fatos Básicos
+
+Para começar, vamos considerar alguns fatos básicos sobre o conjunto de dados
+que está no arquivo `vinhos.csv`.
+
+```{r dados, message=FALSE}
+## Diretório dos arquivos de dados
+diretorio <- "../dados"
+
+## Lê o conjunto de dados
+vinhos <- read_csv(file = paste(c(diretorio, "vinhos.csv"), collapse = "/"))
+```
+
+### Números de Observações
+
+Nesse conjunto, tem dados para vinhos tintos e brancos. Então algumas
+informações básicas sobre esse data set são as seguintes:
+
+* Número de observações relacionadas com vinhos tintos;
+* Número de observações relacionadas com vinhos brancos;
+* Número total de observações.
+
+Esses valores são dados na tabela abaixo.
+
+```{r num_obs}
+## Calcula os números de observações
+num_obs <- vinhos %>% group_by(type) %>% summarise(obs = n())
+
+## Adiciona uma linha com o total
+linha_total <- list("type" = "Todos", "obs" = sum(num_obs$obs))
+num_obs <- bind_rows(num_obs, linha_total)
+
+## Cria a tabela
+num_obs$type <- recode(num_obs$type, "red" = "Tinto", "white" = "Branco")
+kable(num_obs, col.names = c("Tipo", "Observações"))
+```
