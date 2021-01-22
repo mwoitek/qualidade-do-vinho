@@ -85,8 +85,8 @@ kable(
 
 Para cada vinho no conjunto de dados, há `r length(colnames(vinhos)) - 2`
 medidas associadas com as propriedades químicas da bebida. É importante
-analisar a distribuição de cada uma dessas variáveis numéricas. Então vamos
-começar calculando para cada variável as seguintes quantidades:
+analisar a distribuição de cada uma dessas variáveis numéricas. Então começamos
+calculando as seguintes quantidades para cada variável:
 
 * Valor mínimo;
 * Primeiro quartil;
@@ -95,8 +95,131 @@ começar calculando para cada variável as seguintes quantidades:
 * Terceiro quartil;
 * Valor máximo.
 
-Os resultados que obtivemos estão organizados na tabela que segue.
+Por uma questão de conveniência, os dados para os vinhos tintos foram combinados
+com os dados para os vinhos brancos. Essas bebidas têm características
+semelhantes, mas elas são diferentes e devem ser consideradas separadamente.
+Então primeiro apresentamos os resultados para os vinhos tintos e depois aqueles
+para os vinhos brancos. Além disso, só por curiosidade, repetimos a análise
+usando o conjunto de dados combinado (vinhos tintos e brancos). Os resultados
+que obtivemos estão organizados nas tabelas que seguem.
 
-```{r summary}
-##
+```{r summary_functions}
+## Cria um vetor com as quantidades acima para uma dada variável
+cria_vetor_resumo <- function(coluna_variavel) {
+
+  ## Inicializa o vetor que vai guardar todas as quantidades
+  resumo <- c()
+
+  ## Calcula o mínimo
+  resumo <- c(resumo, "minimo" = min(coluna_variavel))
+
+  ## Calcula o primeiro quartil
+  quartis <- quantile(coluna_variavel)
+  resumo <- c(resumo, "primeiro.quartil" = quartis[[2]])
+
+  ## Calcula a mediana
+  resumo <- c(resumo, "mediana" = median(coluna_variavel))
+
+  ## Calcula a média
+  resumo <- c(resumo, "media" = mean(coluna_variavel))
+
+  ## Calcula o terceiro quartil
+  resumo <- c(resumo, "terceiro.quartil" = quartis[[4]])
+
+  ## Calcula o máximo
+  resumo <- c(resumo, "maximo" = max(coluna_variavel))
+
+  ## Retorna o vetor desejado
+  resumo
+
+}
+
+## Cria um tibble com as quantidades acima para cada variável
+cria_tibble_resumo <- function(vinhos, tipo) {
+
+  ## Possibilidades para o argumento `tipo`
+  tipos <- c("tintos", "brancos", "todos")
+  if (!(tipo %in% tipos)) {
+    stop("tipo inválido")
+  }
+
+  ## Cria um vetor que será usado para filtrar os dados
+  if (tipo == "tintos") {
+    filtro <- c("red")
+  } else if (tipo == "brancos") {
+    filtro <- c("white")
+  } else {
+    filtro <- c("red", "white")
+  }
+
+  ## Filtra os dados.
+  ## Seleciona apenas as colunas que interessam neste caso.
+  vinhos_tipo <-
+    vinhos %>%
+      filter(type %in% filtro) %>%
+      select(!c(1, 13))
+
+  ## Vetor com os nomes das colunas selecionadas
+  nomes <- colnames(vinhos_tipo)
+
+  ## Cria e retorna o tibble desejado
+  resumo_tbl <- tibble()
+  for (i in seq_along(nomes)) {
+    resumo_tbl <- bind_rows(
+      resumo_tbl,
+      cria_vetor_resumo(vinhos_tipo[[i]])
+    )
+  }
+  resumo_tbl <- add_column(
+    resumo_tbl,
+    nome = nomes,
+    .before = "minimo"
+  )
+  resumo_tbl
+
+}
+
+## Cria uma tabela com as quantidades acima para cada variável
+cria_tabela_resumo <- function(tibble_resumo) {
+
+  ## Vetor com a versão correta dos nomes das colunas
+  nomes <- c(
+    "Variável",
+    "Mínimo",
+    "Primeiro quartil",
+    "Mediana",
+    "Média",
+    "Terceiro quartil",
+    "Máximo"
+  )
+
+  ## Usando o tibble passado como argumento, cria a tabela desejada
+  kable(
+    tibble_resumo,
+    col.names = nomes,
+    align = paste(rep("c", times = length(nomes)), collapse = "")
+  )
+
+}
+```
+
+Resultados para os vinhos tintos:
+
+```{r summary_red}
+resumo_tbl_tintos <- cria_tibble_resumo(vinhos, "tintos")
+cria_tabela_resumo(resumo_tbl_tintos)
+```
+
+Resultados para os vinhos brancos:
+
+```{r summary_white}
+resumo_tbl_brancos <- cria_tibble_resumo(vinhos, "brancos")
+cria_tabela_resumo(resumo_tbl_brancos)
+```
+
+Resultados para todos os vinhos:
+
+```{r summary_all}
+resumo_tbl_todos <- cria_tibble_resumo(vinhos, "todos")
+cria_tabela_resumo(resumo_tbl_todos)
 ```
