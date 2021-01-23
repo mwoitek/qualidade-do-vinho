@@ -386,4 +386,46 @@ Para cada característica do vinho, criamos um par de diagramas. Um deles
 representa a distribuição dos dados para os vinhos tintos e o outro
 corresponde aos vinhos brancos.
 
-![](analise_exploratoria_files/figure-markdown_strict/x-1.png)
+**Boxplot da variável na coluna `fixed.acidity`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_fixed_acidity-1.png)
+
+**Boxplot da variável na coluna `volatile.acidity`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_volatile_acidity-1.png)
+
+**Boxplot da variável na coluna `citric.acid`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_citric_acid-1.png)
+
+**Boxplot da variável na coluna `residual.sugar`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_residual_sugar-1.png)
+
+**Boxplot da variável na coluna `chlorides`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_chlorides-1.png)
+
+**Boxplot da variável na coluna `free.sulfur.dioxide`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_free_sulfur_dioxide-1.png)
+
+**Boxplot da variável na coluna `total.sulfur.dioxide`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_total_sulfur_dioxide-1.png)
+
+**Boxplot da variável na coluna `density`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_density-1.png)
+
+**Boxplot da variável na coluna `ph`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_ph-1.png)
+
+**Boxplot da variável na coluna `sulphates`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_sulphates-1.png)
+
+**Boxplot da variável na coluna `alcohol`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_alcohol-1.png)

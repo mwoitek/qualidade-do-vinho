@@ -228,40 +228,102 @@ representa a distribuição dos dados para os vinhos tintos e o outro correspond
 aos vinhos brancos.
 
 ```{r boxplot_function}
-## Função para criar um boxplot.
-## Esta função recebe 2 strings, o nome da coluna e o rótulo do eixo y.
+## Função para criar um boxplot. Além dos dados, esta função recebe 2 strings,
+## o nome da coluna e o rótulo do eixo y.
 cria_boxplot <- function(vinhos, coluna, rotulo) {
 
-  ## Seleciona apenas as colunas que importam neste caso
-  vinhos_2_colunas <- select(vinhos, c("type", coluna))
+  ## Seleciona apenas as colunas que importam neste caso. Traduz o nome da
+  ## coluna `type`.
+  vinhos_2_colunas <-
+    vinhos %>%
+      select(c("type", coluna)) %>%
+      rename(Tipo = type)
 
   ## Traduz os nomes dos tipos dos vinhos
-  vinhos_2_colunas$type <- recode(
-    vinhos_2_colunas$type,
+  vinhos_2_colunas$Tipo <- recode(
+    vinhos_2_colunas$Tipo,
     "red" = "Tintos",
     "white" = "Brancos"
   )
 
   ## Usando o ggplot2, cria o boxplot
-  ggplot(
-    vinhos_2_colunas,
-    aes_string(y = colnames(vinhos_2_colunas)[2], fill = "type")
-  ) +
+  ggplot(vinhos_2_colunas, aes_string(y = colnames(vinhos_2_colunas)[2])) +
     geom_boxplot() +
     labs(y = rotulo) +
-    facet_wrap(vars(type)) +
+    facet_wrap(vars(Tipo)) +
     theme_bw(base_size = 16) +
     theme(
-      legend.direction = "horizontal",
-      legend.position = "top"
-    ) +
-    scale_fill_manual(
-      values = c("Tintos" = "#670067", "Brancos" = "#006700")
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank()
     )
 
 }
 ```
 
-```{r x, message=FALSE}
+**Boxplot da variável na coluna `fixed.acidity`:**
+
+```{r boxplot_fixed_acidity, message=FALSE}
 cria_boxplot(vinhos, "fixed.acidity", "Fixed Acidity")
+```
+
+**Boxplot da variável na coluna `volatile.acidity`:**
+
+```{r boxplot_volatile_acidity}
+cria_boxplot(vinhos, "volatile.acidity", "Volatile Acidity")
+```
+
+**Boxplot da variável na coluna `citric.acid`:**
+
+```{r boxplot_citric_acid}
+cria_boxplot(vinhos, "citric.acid", "Citric Acid")
+```
+
+**Boxplot da variável na coluna `residual.sugar`:**
+
+```{r boxplot_residual_sugar}
+cria_boxplot(vinhos, "residual.sugar", "Residual Sugar")
+```
+
+**Boxplot da variável na coluna `chlorides`:**
+
+```{r boxplot_chlorides}
+cria_boxplot(vinhos, "chlorides", "Chlorides")
+```
+
+**Boxplot da variável na coluna `free.sulfur.dioxide`:**
+
+```{r boxplot_free_sulfur_dioxide}
+cria_boxplot(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide")
+```
+
+**Boxplot da variável na coluna `total.sulfur.dioxide`:**
+
+```{r boxplot_total_sulfur_dioxide}
+cria_boxplot(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide")
+```
+
+**Boxplot da variável na coluna `density`:**
+
+```{r boxplot_density}
+cria_boxplot(vinhos, "density", "Density")
+```
+
+**Boxplot da variável na coluna `ph`:**
+
+```{r boxplot_ph}
+cria_boxplot(vinhos, "ph", "pH")
+```
+
+**Boxplot da variável na coluna `sulphates`:**
+
+```{r boxplot_sulphates}
+cria_boxplot(vinhos, "sulphates", "Sulphates")
+```
+
+**Boxplot da variável na coluna `alcohol`:**
+
+```{r boxplot_alcohol}
+cria_boxplot(vinhos, "alcohol", "Alcohol")
 ```
