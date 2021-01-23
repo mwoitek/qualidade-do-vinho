@@ -126,10 +126,8 @@ Por uma questão de conveniência, os dados para os vinhos tintos foram
 combinados com os dados para os vinhos brancos. Essas bebidas têm
 características semelhantes, mas elas são diferentes e devem ser
 consideradas separadamente. Então primeiro apresentamos os resultados
-para os vinhos tintos e depois aqueles para os vinhos brancos. Além
-disso, só por curiosidade, repetimos a análise usando o conjunto de
-dados combinado (vinhos tintos e brancos). Os resultados que obtivemos
-estão organizados nas tabelas que seguem.
+para os vinhos tintos e depois aqueles para os vinhos brancos. Os
+resultados que obtivemos estão organizados nas tabelas que seguem.
 
 Resultados para os vinhos tintos:
 
@@ -370,132 +368,6 @@ Resultados para os vinhos brancos:
 <td style="text-align: center;">10.5142670</td>
 <td style="text-align: center;">11.4000</td>
 <td style="text-align: center;">14.20000</td>
-</tr>
-</tbody>
-</table>
-
-Resultados para todos os vinhos:
-
-<table style="width:100%;">
-<colgroup>
-<col style="width: 21%" />
-<col style="width: 8%" />
-<col style="width: 17%" />
-<col style="width: 10%" />
-<col style="width: 12%" />
-<col style="width: 17%" />
-<col style="width: 10%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Variável</th>
-<th style="text-align: center;">Mínimo</th>
-<th style="text-align: center;">Primeiro quartil</th>
-<th style="text-align: center;">Mediana</th>
-<th style="text-align: center;">Média</th>
-<th style="text-align: center;">Terceiro quartil</th>
-<th style="text-align: center;">Máximo</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">fixed.acidity</td>
-<td style="text-align: center;">3.80000</td>
-<td style="text-align: center;">6.40000</td>
-<td style="text-align: center;">7.00000</td>
-<td style="text-align: center;">7.2153071</td>
-<td style="text-align: center;">7.70000</td>
-<td style="text-align: center;">15.90000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">volatile.acidity</td>
-<td style="text-align: center;">0.08000</td>
-<td style="text-align: center;">0.23000</td>
-<td style="text-align: center;">0.29000</td>
-<td style="text-align: center;">0.3396660</td>
-<td style="text-align: center;">0.40000</td>
-<td style="text-align: center;">1.58000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">citric.acid</td>
-<td style="text-align: center;">0.00000</td>
-<td style="text-align: center;">0.25000</td>
-<td style="text-align: center;">0.31000</td>
-<td style="text-align: center;">0.3186332</td>
-<td style="text-align: center;">0.39000</td>
-<td style="text-align: center;">1.66000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">residual.sugar</td>
-<td style="text-align: center;">0.60000</td>
-<td style="text-align: center;">1.80000</td>
-<td style="text-align: center;">3.00000</td>
-<td style="text-align: center;">5.4432353</td>
-<td style="text-align: center;">8.10000</td>
-<td style="text-align: center;">65.80000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">chlorides</td>
-<td style="text-align: center;">0.00900</td>
-<td style="text-align: center;">0.03800</td>
-<td style="text-align: center;">0.04700</td>
-<td style="text-align: center;">0.0560339</td>
-<td style="text-align: center;">0.06500</td>
-<td style="text-align: center;">0.61100</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">free.sulfur.dioxide</td>
-<td style="text-align: center;">1.00000</td>
-<td style="text-align: center;">17.00000</td>
-<td style="text-align: center;">29.00000</td>
-<td style="text-align: center;">30.5253194</td>
-<td style="text-align: center;">41.00000</td>
-<td style="text-align: center;">289.00000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">total.sulfur.dioxide</td>
-<td style="text-align: center;">6.00000</td>
-<td style="text-align: center;">77.00000</td>
-<td style="text-align: center;">118.00000</td>
-<td style="text-align: center;">115.7445744</td>
-<td style="text-align: center;">156.00000</td>
-<td style="text-align: center;">440.00000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">density</td>
-<td style="text-align: center;">0.98711</td>
-<td style="text-align: center;">0.99234</td>
-<td style="text-align: center;">0.99489</td>
-<td style="text-align: center;">0.9946966</td>
-<td style="text-align: center;">0.99699</td>
-<td style="text-align: center;">1.03898</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">ph</td>
-<td style="text-align: center;">2.72000</td>
-<td style="text-align: center;">3.11000</td>
-<td style="text-align: center;">3.21000</td>
-<td style="text-align: center;">3.2185008</td>
-<td style="text-align: center;">3.32000</td>
-<td style="text-align: center;">4.01000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">sulphates</td>
-<td style="text-align: center;">0.22000</td>
-<td style="text-align: center;">0.43000</td>
-<td style="text-align: center;">0.51000</td>
-<td style="text-align: center;">0.5312683</td>
-<td style="text-align: center;">0.60000</td>
-<td style="text-align: center;">2.00000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">alcohol</td>
-<td style="text-align: center;">8.00000</td>
-<td style="text-align: center;">9.50000</td>
-<td style="text-align: center;">10.30000</td>
-<td style="text-align: center;">10.4918008</td>
-<td style="text-align: center;">11.30000</td>
-<td style="text-align: center;">14.90000</td>
 </tr>
 </tbody>
 </table>
