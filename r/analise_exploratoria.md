@@ -371,3 +371,19 @@ Resultados para os vinhos brancos:
 </tr>
 </tbody>
 </table>
+
+#### Boxplots
+
+Não é tão simples ganhar um entendimento sobre a distribuição dos dados
+apenas olhando para as tabelas acima. Sendo assim, na sequência
+consideramos algumas maneiras de visualizar essa distribuição. Primeiro,
+criamos uma série de boxplots. Esse passo é interessante, pois os
+autores que compilaram este conjunto de dados afirmaram que nele há uma
+grande quantidade de outliers. Queremos confirmar que essa afirmação é
+verdadeira visualizando os diagramas de caixa.
+
+Para cada característica do vinho, criamos um par de diagramas. Um deles
+representa a distribuição dos dados para os vinhos tintos e o outro
+corresponde aos vinhos brancos.
+
+![](analise_exploratoria_files/figure-markdown_strict/x-1.png)

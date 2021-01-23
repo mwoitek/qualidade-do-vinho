@@ -7,6 +7,7 @@ output: md_document
 ```{r setup, include=FALSE}
 ## Importa as bibliotecas necessárias
 library(dplyr)
+library(ggplot2)
 library(knitr)
 library(magrittr)
 library(readr)
@@ -210,4 +211,57 @@ Resultados para os vinhos brancos:
 ```{r summary_white}
 resumo_tbl_brancos <- cria_tibble_resumo(vinhos, "brancos")
 cria_tabela_resumo(resumo_tbl_brancos)
+```
+
+#### Boxplots
+
+Não é tão simples ganhar um entendimento sobre a distribuição dos dados apenas
+olhando para as tabelas acima. Sendo assim, na sequência consideramos algumas
+maneiras de visualizar essa distribuição. Primeiro, criamos uma série de
+boxplots. Esse passo é interessante, pois os autores que compilaram este
+conjunto de dados afirmaram que nele há uma grande quantidade de outliers.
+Queremos confirmar que essa afirmação é verdadeira visualizando os diagramas de
+caixa.
+
+Para cada característica do vinho, criamos um par de diagramas. Um deles
+representa a distribuição dos dados para os vinhos tintos e o outro corresponde
+aos vinhos brancos.
+
+```{r boxplot_function}
+## Função para criar um boxplot.
+## Esta função recebe 2 strings, o nome da coluna e o rótulo do eixo y.
+cria_boxplot <- function(vinhos, coluna, rotulo) {
+
+  ## Seleciona apenas as colunas que importam neste caso
+  vinhos_2_colunas <- select(vinhos, c("type", coluna))
+
+  ## Traduz os nomes dos tipos dos vinhos
+  vinhos_2_colunas$type <- recode(
+    vinhos_2_colunas$type,
+    "red" = "Tintos",
+    "white" = "Brancos"
+  )
+
+  ## Usando o ggplot2, cria o boxplot
+  ggplot(
+    vinhos_2_colunas,
+    aes_string(y = colnames(vinhos_2_colunas)[2], fill = "type")
+  ) +
+    geom_boxplot() +
+    labs(y = rotulo) +
+    facet_wrap(vars(type)) +
+    theme_bw(base_size = 16) +
+    theme(
+      legend.direction = "horizontal",
+      legend.position = "top"
+    ) +
+    scale_fill_manual(
+      values = c("Tintos" = "#670067", "Brancos" = "#006700")
+    )
+
+}
+```
+
+```{r x, message=FALSE}
+cria_boxplot(vinhos, "fixed.acidity", "Fixed Acidity")
 ```
