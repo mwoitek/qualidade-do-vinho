@@ -227,6 +227,11 @@ Para cada característica do vinho, criamos um par de diagramas. Um deles
 representa a distribuição dos dados para os vinhos tintos e o outro corresponde
 aos vinhos brancos.
 
+```{r traduz}
+## Traduz os nomes dos tipos dos vinhos
+vinhos$type <- recode(vinhos$type, "red" = "Tintos", "white" = "Brancos")
+```
+
 ```{r boxplot_function}
 ## Função para criar um boxplot. Além dos dados, esta função recebe 2 strings,
 ## o nome da coluna e o rótulo do eixo y.
@@ -234,13 +239,6 @@ cria_boxplot <- function(vinhos, coluna, rotulo) {
 
   ## Seleciona apenas as colunas que importam neste caso
   vinhos_2_colunas <- select(vinhos, c("type", coluna))
-
-  ## Traduz os nomes dos tipos dos vinhos
-  vinhos_2_colunas$type <- recode(
-    vinhos_2_colunas$type,
-    "red" = "Tintos",
-    "white" = "Brancos"
-  )
 
   ## Usando o ggplot2, cria o boxplot
   ggplot(vinhos_2_colunas, aes_string(y = coluna)) +
@@ -331,6 +329,96 @@ alternativa. Para cada uma delas, geramos um par de violin plots. Como no caso
 anterior, uma figura está relacionada com os vinhos tintos e a outra com os
 vinhos brancos.
 
+```{r violin_plot_funcao}
+## Função para criar um violin plot. Além dos dados, esta função recebe
+## 2 strings, o nome da coluna e o rótulo do eixo x.
+cria_violin <- function(vinhos, coluna, rotulo) {
+
+  ## Seleciona apenas as colunas que importam neste caso
+  vinhos_2_colunas <- select(vinhos, c("type", coluna))
+
+  ## Usando o ggplot2, cria o violin plot
+  ggplot(vinhos_2_colunas, aes_string(x = coluna, y = "type")) +
+    geom_violin(
+      draw_quantiles = c(0.25, 0.5, 0.75),
+      trim = FALSE
+    ) +
+    labs(x = rotulo, y = "Tipo") +
+    theme_bw(base_size = 16) +
+    theme(
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor.y = element_blank()
+    )
+
+}
+```
+
+**Violin plot da variável na coluna `fixed.acidity`:**
+
+```{r violin_fixed_acidity}
+cria_violin(vinhos, "fixed.acidity", "Fixed Acidity")
+```
+
+**Violin plot da variável na coluna `volatile.acidity`:**
+
+```{r violin_volatile_acidity}
+cria_violin(vinhos, "volatile.acidity", "Volatile Acidity")
+```
+
+**Violin plot da variável na coluna `citric.acid`:**
+
+```{r violin_citric_acid}
+cria_violin(vinhos, "citric.acid", "Citric Acid")
+```
+
+**Violin plot da variável na coluna `residual.sugar`:**
+
+```{r violin_residual_sugar}
+cria_violin(vinhos, "residual.sugar", "Residual Sugar")
+```
+
+**Violin plot da variável na coluna `chlorides`:**
+
+```{r violin_chlorides}
+cria_violin(vinhos, "chlorides", "Chlorides")
+```
+
+**Violin plot da variável na coluna `free.sulfur.dioxide`:**
+
+```{r violin_free_sulfur_dioxide}
+cria_violin(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide")
+```
+
+**Violin plot da variável na coluna `total.sulfur.dioxide`:**
+
+```{r violin_total_sulfur_dioxide}
+cria_violin(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide")
+```
+
+**Violin plot da variável na coluna `density`:**
+
+```{r violin_density}
+cria_violin(vinhos, "density", "Density")
+```
+
+**Violin plot da variável na coluna `ph`:**
+
+```{r violin_ph}
+cria_violin(vinhos, "ph", "pH")
+```
+
+**Violin plot da variável na coluna `sulphates`:**
+
+```{r violin_sulphates}
+cria_violin(vinhos, "sulphates", "Sulphates")
+```
+
+**Violin plot da variável na coluna `alcohol`:**
+
+```{r violin_alcohol}
+cria_violin(vinhos, "alcohol", "Alcohol")
+```
+
 #### Histogramas
 
 Para continuar, consideramos outro modo de visualizar a distribuição das
@@ -361,13 +449,6 @@ cria_histograma <- function(vinhos, coluna, rotulo) {
 
   ## Seleciona apenas as colunas que importam neste caso
   vinhos_2_colunas <- select(vinhos, c("type", coluna))
-
-  ## Traduz os nomes dos tipos dos vinhos
-  vinhos_2_colunas$type <- recode(
-    vinhos_2_colunas$type,
-    "red" = "Tintos",
-    "white" = "Brancos"
-  )
 
   ## Usando o ggplot2, cria o histograma. Perceba que a largura de cada barra
   ## depende do tipo de vinho.
