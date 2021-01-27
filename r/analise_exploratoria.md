@@ -429,3 +429,62 @@ corresponde aos vinhos brancos.
 **Boxplot da variável na coluna `alcohol`:**
 
 ![](analise_exploratoria_files/figure-markdown_strict/boxplot_alcohol-1.png)
+
+#### Violin Plots
+
+Na sequência, visualizamos a distribuição das variáveis contínuas de uma
+maneira alternativa. Para cada uma delas, geramos um par de violin
+plots. Como no caso anterior, uma figura está relacionada com os vinhos
+tintos e a outra com os vinhos brancos.
+
+#### Histogramas
+
+Para continuar, consideramos outro modo de visualizar a distribuição das
+variáveis contínuas. Especificamente, geramos os histogramas
+correspondentes. Como antes, criamos um par de figuras para cada
+variável. Uma delas representa a distribuição dos dados para os vinhos
+tintos e a outra está associada com os vinhos brancos.
+
+**Histograma da variável na coluna `fixed.acidity`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_fixed_acidity-1.png)
+
+**Histograma da variável na coluna `volatile.acidity`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_volatile_acidity-1.png)
+
+**Histograma da variável na coluna `citric.acid`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_citric_acid-1.png)
+
+**Histograma da variável na coluna `residual.sugar`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_residual_sugar-1.png)
+
+**Histograma da variável na coluna `chlorides`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_chlorides-1.png)
+
+**Histograma da variável na coluna `free.sulfur.dioxide`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_free_sulfur_dioxide-1.png)
+
+**Histograma da variável na coluna `total.sulfur.dioxide`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_total_sulfur_dioxide-1.png)
+
+**Histograma da variável na coluna `density`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_density-1.png)
+
+**Histograma da variável na coluna `ph`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_ph-1.png)
+
+**Histograma da variável na coluna `sulphates`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_sulphates-1.png)
+
+**Histograma da variável na coluna `alcohol`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/histograma_alcohol-1.png)

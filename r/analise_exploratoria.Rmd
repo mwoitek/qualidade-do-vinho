@@ -232,25 +232,21 @@ aos vinhos brancos.
 ## o nome da coluna e o rótulo do eixo y.
 cria_boxplot <- function(vinhos, coluna, rotulo) {
 
-  ## Seleciona apenas as colunas que importam neste caso. Traduz o nome da
-  ## coluna `type`.
-  vinhos_2_colunas <-
-    vinhos %>%
-      select(c("type", coluna)) %>%
-      rename(Tipo = type)
+  ## Seleciona apenas as colunas que importam neste caso
+  vinhos_2_colunas <- select(vinhos, c("type", coluna))
 
   ## Traduz os nomes dos tipos dos vinhos
-  vinhos_2_colunas$Tipo <- recode(
-    vinhos_2_colunas$Tipo,
+  vinhos_2_colunas$type <- recode(
+    vinhos_2_colunas$type,
     "red" = "Tintos",
     "white" = "Brancos"
   )
 
   ## Usando o ggplot2, cria o boxplot
-  ggplot(vinhos_2_colunas, aes_string(y = colnames(vinhos_2_colunas)[2])) +
+  ggplot(vinhos_2_colunas, aes_string(y = coluna)) +
     geom_boxplot() +
     labs(y = rotulo) +
-    facet_wrap(vars(Tipo)) +
+    facet_wrap(vars(type)) +
     theme_bw(base_size = 16) +
     theme(
       axis.text.x = element_blank(),
@@ -326,4 +322,129 @@ cria_boxplot(vinhos, "sulphates", "Sulphates")
 
 ```{r boxplot_alcohol}
 cria_boxplot(vinhos, "alcohol", "Alcohol")
+```
+
+#### Violin Plots
+
+Na sequência, visualizamos a distribuição das variáveis contínuas de uma maneira
+alternativa. Para cada uma delas, geramos um par de violin plots. Como no caso
+anterior, uma figura está relacionada com os vinhos tintos e a outra com os
+vinhos brancos.
+
+#### Histogramas
+
+Para continuar, consideramos outro modo de visualizar a distribuição das
+variáveis contínuas. Especificamente, geramos os histogramas correspondentes.
+Como antes, criamos um par de figuras para cada variável. Uma delas representa a
+distribuição dos dados para os vinhos tintos e a outra está associada com os
+vinhos brancos.
+
+```{r histograma_funcao}
+## Função para calcular a largura ideal de cada barra do histograma. Esta
+## função está baseada na regra de Freedman–Diaconis.
+calcula_binwidth_fd <- function(vetor_dados) {
+
+  ## Calcula a amplitude interquartil
+  amplitude <- IQR(vetor_dados)
+
+  ## Determina o número de observações
+  num_obs <- length(vetor_dados)
+
+  ## Retorna a largura
+  (2 * amplitude) / (num_obs ^ (1 / 3))
+
+}
+
+## Função para criar um histograma. Além dos dados, esta função recebe
+## 2 strings, o nome da coluna e o rótulo do eixo x.
+cria_histograma <- function(vinhos, coluna, rotulo) {
+
+  ## Seleciona apenas as colunas que importam neste caso
+  vinhos_2_colunas <- select(vinhos, c("type", coluna))
+
+  ## Traduz os nomes dos tipos dos vinhos
+  vinhos_2_colunas$type <- recode(
+    vinhos_2_colunas$type,
+    "red" = "Tintos",
+    "white" = "Brancos"
+  )
+
+  ## Usando o ggplot2, cria o histograma. Perceba que a largura de cada barra
+  ## depende do tipo de vinho.
+  ggplot(vinhos_2_colunas, aes_string(x = coluna)) +
+    geom_histogram(
+      aes(y = stat(ncount)),
+      binwidth = calcula_binwidth_fd
+    ) +
+    labs(x = rotulo, y = "Frequência Normalizada") +
+    facet_wrap(vars(type)) +
+    theme_bw(base_size = 16)
+
+}
+```
+
+**Histograma da variável na coluna `fixed.acidity`:**
+
+```{r histograma_fixed_acidity}
+cria_histograma(vinhos, "fixed.acidity", "Fixed Acidity")
+```
+
+**Histograma da variável na coluna `volatile.acidity`:**
+
+```{r histograma_volatile_acidity}
+cria_histograma(vinhos, "volatile.acidity", "Volatile Acidity")
+```
+
+**Histograma da variável na coluna `citric.acid`:**
+
+```{r histograma_citric_acid}
+cria_histograma(vinhos, "citric.acid", "Citric Acid")
+```
+
+**Histograma da variável na coluna `residual.sugar`:**
+
+```{r histograma_residual_sugar}
+cria_histograma(vinhos, "residual.sugar", "Residual Sugar")
+```
+
+**Histograma da variável na coluna `chlorides`:**
+
+```{r histograma_chlorides}
+cria_histograma(vinhos, "chlorides", "Chlorides")
+```
+
+**Histograma da variável na coluna `free.sulfur.dioxide`:**
+
+```{r histograma_free_sulfur_dioxide}
+cria_histograma(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide")
+```
+
+**Histograma da variável na coluna `total.sulfur.dioxide`:**
+
+```{r histograma_total_sulfur_dioxide}
+cria_histograma(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide")
+```
+
+**Histograma da variável na coluna `density`:**
+
+```{r histograma_density}
+cria_histograma(vinhos, "density", "Density")
+```
+
+**Histograma da variável na coluna `ph`:**
+
+```{r histograma_ph}
+cria_histograma(vinhos, "ph", "pH")
+```
+
+**Histograma da variável na coluna `sulphates`:**
+
+```{r histograma_sulphates}
+cria_histograma(vinhos, "sulphates", "Sulphates")
+```
+
+**Histograma da variável na coluna `alcohol`:**
+
+```{r histograma_alcohol}
+cria_histograma(vinhos, "alcohol", "Alcohol")
 ```
