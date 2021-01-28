@@ -1,5 +1,4 @@
-Fatos Básicos
--------------
+## Fatos Básicos
 
 Para começar, vamos considerar alguns fatos básicos sobre o conjunto de
 dados que está no arquivo `vinhos.csv`.
@@ -439,9 +438,6 @@ tintos e a outra com os vinhos brancos.
 
 **Violin plot da variável na coluna `fixed.acidity`:**
 
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
-
 ![](analise_exploratoria_files/figure-markdown_strict/violin_fixed_acidity-1.png)
 
 **Violin plot da variável na coluna `volatile.acidity`:**
@@ -450,49 +446,25 @@ tintos e a outra com os vinhos brancos.
 
 **Violin plot da variável na coluna `citric.acid`:**
 
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
-
 ![](analise_exploratoria_files/figure-markdown_strict/violin_citric_acid-1.png)
 
 **Violin plot da variável na coluna `residual.sugar`:**
-
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
-
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
 
 ![](analise_exploratoria_files/figure-markdown_strict/violin_residual_sugar-1.png)
 
 **Violin plot da variável na coluna `chlorides`:**
 
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
-
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
-
 ![](analise_exploratoria_files/figure-markdown_strict/violin_chlorides-1.png)
 
 **Violin plot da variável na coluna `free.sulfur.dioxide`:**
-
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
 
 ![](analise_exploratoria_files/figure-markdown_strict/violin_free_sulfur_dioxide-1.png)
 
 **Violin plot da variável na coluna `total.sulfur.dioxide`:**
 
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
-
 ![](analise_exploratoria_files/figure-markdown_strict/violin_total_sulfur_dioxide-1.png)
 
 **Violin plot da variável na coluna `density`:**
-
-    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-    ## collapsing to unique 'x' values
 
 ![](analise_exploratoria_files/figure-markdown_strict/violin_density-1.png)
 

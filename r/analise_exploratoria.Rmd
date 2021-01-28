@@ -21,7 +21,7 @@ opts_chunk$set(echo = FALSE)
 Para começar, vamos considerar alguns fatos básicos sobre o conjunto de dados
 que está no arquivo `vinhos.csv`.
 
-```{r dados, message=FALSE}
+```{r dados, cache=TRUE, message=FALSE}
 ## Diretório dos arquivos de dados
 diretorio <- "../dados"
 
@@ -40,7 +40,7 @@ informações básicas sobre esse data set são as seguintes:
 
 Esses valores são dados na tabela abaixo.
 
-```{r num_obs}
+```{r num_obs, cache=TRUE}
 ## Calcula os números de observações
 num_obs <- vinhos %>% group_by(type) %>% summarise(obs = n())
 
@@ -64,7 +64,7 @@ valores faltando. É uma boa ideia confirmar que essa afirmação é verdadeira.
 A quantidade de missing values para cada coluna do conjunto de dados pode ser
 vista na próxima tabela.
 
-```{r missing_values}
+```{r missing_values, cache=TRUE}
 ## Vetor com os nomes das colunas
 nomes <- colnames(vinhos)[-1]
 
@@ -201,14 +201,14 @@ cria_tabela_resumo <- function(tibble_resumo) {
 
 Resultados para os vinhos tintos:
 
-```{r summary_red}
+```{r summary_red, cache=TRUE}
 resumo_tbl_tintos <- cria_tibble_resumo(vinhos, "tintos")
 cria_tabela_resumo(resumo_tbl_tintos)
 ```
 
 Resultados para os vinhos brancos:
 
-```{r summary_white}
+```{r summary_white, cache=TRUE}
 resumo_tbl_brancos <- cria_tibble_resumo(vinhos, "brancos")
 cria_tabela_resumo(resumo_tbl_brancos)
 ```
@@ -237,11 +237,7 @@ vinhos$type <- recode(vinhos$type, "red" = "Tintos", "white" = "Brancos")
 ## o nome da coluna e o rótulo do eixo y.
 cria_boxplot <- function(vinhos, coluna, rotulo) {
 
-  ## Seleciona apenas as colunas que importam neste caso
-  vinhos_2_colunas <- select(vinhos, c("type", coluna))
-
-  ## Usando o ggplot2, cria o boxplot
-  ggplot(vinhos_2_colunas, aes_string(y = coluna)) +
+  ggplot(vinhos, aes_string(y = coluna)) +
     geom_boxplot() +
     labs(y = rotulo) +
     facet_wrap(vars(type)) +
@@ -334,18 +330,15 @@ vinhos brancos.
 ## 2 strings, o nome da coluna e o rótulo do eixo x.
 cria_violin <- function(vinhos, coluna, rotulo) {
 
-  ## Seleciona apenas as colunas que importam neste caso
-  vinhos_2_colunas <- select(vinhos, c("type", coluna))
-
-  ## Usando o ggplot2, cria o violin plot
-  ggplot(vinhos_2_colunas, aes_string(x = coluna, y = "type")) +
-    geom_violin(
-      draw_quantiles = c(0.25, 0.5, 0.75),
-      trim = FALSE
-    ) +
-    labs(x = rotulo, y = "Tipo") +
+  ## NOTA: O violin plot é criado de tal modo que os 2 violinos têm a mesma
+  ## largura máxima
+  ggplot(vinhos, aes_string(x = coluna, y = "type")) +
+    geom_violin(scale = "width") +
+    geom_boxplot(outlier.shape = NA, width = 0.1) +
+    labs(x = rotulo) +
     theme_bw(base_size = 16) +
     theme(
+      axis.title.y = element_blank(),
       panel.grid.major.y = element_blank(),
       panel.grid.minor.y = element_blank()
     )
@@ -355,67 +348,67 @@ cria_violin <- function(vinhos, coluna, rotulo) {
 
 **Violin plot da variável na coluna `fixed.acidity`:**
 
-```{r violin_fixed_acidity}
+```{r violin_fixed_acidity, message=FALSE}
 cria_violin(vinhos, "fixed.acidity", "Fixed Acidity")
 ```
 
 **Violin plot da variável na coluna `volatile.acidity`:**
 
-```{r violin_volatile_acidity}
+```{r violin_volatile_acidity, message=FALSE}
 cria_violin(vinhos, "volatile.acidity", "Volatile Acidity")
 ```
 
 **Violin plot da variável na coluna `citric.acid`:**
 
-```{r violin_citric_acid}
+```{r violin_citric_acid, message=FALSE}
 cria_violin(vinhos, "citric.acid", "Citric Acid")
 ```
 
 **Violin plot da variável na coluna `residual.sugar`:**
 
-```{r violin_residual_sugar}
+```{r violin_residual_sugar, message=FALSE}
 cria_violin(vinhos, "residual.sugar", "Residual Sugar")
 ```
 
 **Violin plot da variável na coluna `chlorides`:**
 
-```{r violin_chlorides}
+```{r violin_chlorides, message=FALSE}
 cria_violin(vinhos, "chlorides", "Chlorides")
 ```
 
 **Violin plot da variável na coluna `free.sulfur.dioxide`:**
 
-```{r violin_free_sulfur_dioxide}
+```{r violin_free_sulfur_dioxide, message=FALSE}
 cria_violin(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide")
 ```
 
 **Violin plot da variável na coluna `total.sulfur.dioxide`:**
 
-```{r violin_total_sulfur_dioxide}
+```{r violin_total_sulfur_dioxide, message=FALSE}
 cria_violin(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide")
 ```
 
 **Violin plot da variável na coluna `density`:**
 
-```{r violin_density}
+```{r violin_density, message=FALSE}
 cria_violin(vinhos, "density", "Density")
 ```
 
 **Violin plot da variável na coluna `ph`:**
 
-```{r violin_ph}
+```{r violin_ph, message=FALSE}
 cria_violin(vinhos, "ph", "pH")
 ```
 
 **Violin plot da variável na coluna `sulphates`:**
 
-```{r violin_sulphates}
+```{r violin_sulphates, message=FALSE}
 cria_violin(vinhos, "sulphates", "Sulphates")
 ```
 
 **Violin plot da variável na coluna `alcohol`:**
 
-```{r violin_alcohol}
+```{r violin_alcohol, message=FALSE}
 cria_violin(vinhos, "alcohol", "Alcohol")
 ```
 
@@ -427,7 +420,7 @@ Como antes, criamos um par de figuras para cada variável. Uma delas representa 
 distribuição dos dados para os vinhos tintos e a outra está associada com os
 vinhos brancos.
 
-```{r histograma_funcao}
+```{r histograma_funcoes_largura}
 ## Função para calcular a largura ideal de cada barra do histograma. Esta
 ## função está baseada na regra de Freedman–Diaconis.
 calcula_binwidth_fd <- function(vetor_dados) {
@@ -443,23 +436,55 @@ calcula_binwidth_fd <- function(vetor_dados) {
 
 }
 
-## Função para criar um histograma. Além dos dados, esta função recebe
-## 2 strings, o nome da coluna e o rótulo do eixo x.
-cria_histograma <- function(vinhos, coluna, rotulo) {
+## Função que recebe o número ideal de barras e retorna a largura de cada
+## barra.
+converte_numero_largura <- function(vetor_dados, num_barras) {
 
-  ## Seleciona apenas as colunas que importam neste caso
-  vinhos_2_colunas <- select(vinhos, c("type", coluna))
+  ## Determina o mínimo
+  minimo <- min(vetor_dados)
 
-  ## Usando o ggplot2, cria o histograma. Perceba que a largura de cada barra
-  ## depende do tipo de vinho.
-  ggplot(vinhos_2_colunas, aes_string(x = coluna)) +
+  ## Determina o máximo
+  maximo <- max(vetor_dados)
+
+  ## Retorna a largura
+  (maximo - minimo) / num_barras
+
+}
+
+## Função para calcular a largura ideal de cada barra do histograma. Esta
+## função está baseada na regra de Rice.
+calcula_binwidth_rice <- function(vetor_dados) {
+
+  ## Determina o número de observações
+  num_obs <- length(vetor_dados)
+
+  ## Calcula o número ideal de barras
+  num_barras <- ceiling(2 * (num_obs ^ (1 / 3)))
+
+  ## Retorna a largura
+  converte_numero_largura(vetor_dados, num_barras)
+
+}
+```
+
+```{r histograma_funcao}
+## Função para criar um histograma. Além dos dados, esta função recebe os
+## seguintes argumentos:
+## - o nome da coluna;
+## - o rótulo do eixo x;
+## - a função que calcula a largura ideal das barras.
+cria_histograma <- function(vinhos, coluna, rotulo, funcao_largura) {
+
+  ## NOTA: A largura de cada barra depende do tipo de vinho
+  ggplot(vinhos, aes_string(x = coluna)) +
     geom_histogram(
-      aes(y = stat(ncount)),
-      binwidth = calcula_binwidth_fd
+      aes(y = stat(count) / sum(count)),
+      binwidth = funcao_largura
     ) +
-    labs(x = rotulo, y = "Frequência Normalizada") +
+    labs(x = rotulo, y = "Frequência Relativa") +
     facet_wrap(vars(type)) +
-    theme_bw(base_size = 16)
+    theme_bw(base_size = 16) +
+    scale_y_continuous(labels = scales::percent)
 
 }
 ```
@@ -467,65 +492,76 @@ cria_histograma <- function(vinhos, coluna, rotulo) {
 **Histograma da variável na coluna `fixed.acidity`:**
 
 ```{r histograma_fixed_acidity}
-cria_histograma(vinhos, "fixed.acidity", "Fixed Acidity")
+## cria_histograma(vinhos, "fixed.acidity", "Fixed Acidity", calcula_binwidth_fd)
+cria_histograma(vinhos, "fixed.acidity", "Fixed Acidity", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `volatile.acidity`:**
 
 ```{r histograma_volatile_acidity}
-cria_histograma(vinhos, "volatile.acidity", "Volatile Acidity")
+## cria_histograma(vinhos, "volatile.acidity", "Volatile Acidity", calcula_binwidth_fd)
+cria_histograma(vinhos, "volatile.acidity", "Volatile Acidity", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `citric.acid`:**
 
 ```{r histograma_citric_acid}
-cria_histograma(vinhos, "citric.acid", "Citric Acid")
+## cria_histograma(vinhos, "citric.acid", "Citric Acid", calcula_binwidth_fd)
+cria_histograma(vinhos, "citric.acid", "Citric Acid", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `residual.sugar`:**
 
 ```{r histograma_residual_sugar}
-cria_histograma(vinhos, "residual.sugar", "Residual Sugar")
+## cria_histograma(vinhos, "residual.sugar", "Residual Sugar", calcula_binwidth_fd)
+cria_histograma(vinhos, "residual.sugar", "Residual Sugar", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `chlorides`:**
 
 ```{r histograma_chlorides}
-cria_histograma(vinhos, "chlorides", "Chlorides")
+## cria_histograma(vinhos, "chlorides", "Chlorides", calcula_binwidth_fd)
+cria_histograma(vinhos, "chlorides", "Chlorides", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `free.sulfur.dioxide`:**
 
 ```{r histograma_free_sulfur_dioxide}
-cria_histograma(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide")
+## cria_histograma(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide", calcula_binwidth_fd)
+cria_histograma(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `total.sulfur.dioxide`:**
 
 ```{r histograma_total_sulfur_dioxide}
-cria_histograma(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide")
+cria_histograma(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide", calcula_binwidth_fd)
+## cria_histograma(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `density`:**
 
 ```{r histograma_density}
-cria_histograma(vinhos, "density", "Density")
+## cria_histograma(vinhos, "density", "Density", calcula_binwidth_fd)
+cria_histograma(vinhos, "density", "Density", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `ph`:**
 
 ```{r histograma_ph}
-cria_histograma(vinhos, "ph", "pH")
+## cria_histograma(vinhos, "ph", "pH", calcula_binwidth_fd)
+cria_histograma(vinhos, "ph", "pH", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `sulphates`:**
 
 ```{r histograma_sulphates}
-cria_histograma(vinhos, "sulphates", "Sulphates")
+## cria_histograma(vinhos, "sulphates", "Sulphates", calcula_binwidth_fd)
+cria_histograma(vinhos, "sulphates", "Sulphates", calcula_binwidth_rice)
 ```
 
 **Histograma da variável na coluna `alcohol`:**
 
 ```{r histograma_alcohol}
-cria_histograma(vinhos, "alcohol", "Alcohol")
+cria_histograma(vinhos, "alcohol", "Alcohol", calcula_binwidth_fd)
+## cria_histograma(vinhos, "alcohol", "Alcohol", calcula_binwidth_rice)
 ```
