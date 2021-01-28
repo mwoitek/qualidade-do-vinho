@@ -433,8 +433,14 @@ corresponde aos vinhos brancos.
 
 Na sequência, visualizamos a distribuição das variáveis contínuas de uma
 maneira alternativa. Para cada uma delas, geramos um par de violin
-plots. Como no caso anterior, uma figura está relacionada com os vinhos
-tintos e a outra com os vinhos brancos.
+plots. Essas figuras complementam a visualização anterior, pois, junto
+com uma versão menos detalhada dos boxplots, plotamos uma estimativa
+para as densidades de probabilidade.
+
+Como no caso anterior, para cada variável, uma figura está relacionada
+com os vinhos tintos e a outra com os vinhos brancos. É importante
+observar o seguinte: um violin plot é criado de tal modo que os 2
+violinos têm a mesma largura máxima.
 
 **Violin plot da variável na coluna `fixed.acidity`:**
 
@@ -484,9 +490,24 @@ tintos e a outra com os vinhos brancos.
 
 Para continuar, consideramos outro modo de visualizar a distribuição das
 variáveis contínuas. Especificamente, geramos os histogramas
-correspondentes. Como antes, criamos um par de figuras para cada
-variável. Uma delas representa a distribuição dos dados para os vinhos
-tintos e a outra está associada com os vinhos brancos.
+correspondentes. Ao fazer isso, o nosso objetivo é ter outra maneira de
+analisar a forma das distribuições.
+
+Como antes, criamos um par de figuras para cada variável. Uma delas
+representa a distribuição dos dados para os vinhos tintos e a outra está
+associada com os vinhos brancos.
+
+Alguns comentários sobre esses histogramas:
+
+-   O número de barras em cada histograma foi escolhido com base em 2
+    regras. Especificamente, em alguns casos usamos a regra de
+    Freedman-Diaconis e nos outros utilizamos a regra de Rice. Em todos
+    os casos, a regra escolhida foi aquela que produziu a “melhor”
+    figura (com a “pior” figura sendo aquela que mais se parece com um
+    “pente quebrado”).
+-   Para uma mesma variável, ao plotar os 2 histogramas usamos
+    diferentes números de barras. Mais uma vez, o propósito era gerar as
+    “melhores” figuras possíveis.
 
 **Histograma da variável na coluna `fixed.acidity`:**
 

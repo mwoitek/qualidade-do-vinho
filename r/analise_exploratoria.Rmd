@@ -321,9 +321,15 @@ cria_boxplot(vinhos, "alcohol", "Alcohol")
 #### Violin Plots
 
 Na sequência, visualizamos a distribuição das variáveis contínuas de uma maneira
-alternativa. Para cada uma delas, geramos um par de violin plots. Como no caso
-anterior, uma figura está relacionada com os vinhos tintos e a outra com os
-vinhos brancos.
+alternativa. Para cada uma delas, geramos um par de violin plots. Essas figuras
+complementam a visualização anterior, pois, junto com uma versão menos
+detalhada dos boxplots, plotamos uma estimativa para as densidades de
+probabilidade.
+
+Como no caso anterior, para cada variável, uma figura está relacionada com os
+vinhos tintos e a outra com os vinhos brancos. É importante observar
+o seguinte: um violin plot é criado de tal modo que os 2 violinos têm a mesma
+largura máxima.
 
 ```{r violin_plot_funcao}
 ## Função para criar um violin plot. Além dos dados, esta função recebe
@@ -416,13 +422,27 @@ cria_violin(vinhos, "alcohol", "Alcohol")
 
 Para continuar, consideramos outro modo de visualizar a distribuição das
 variáveis contínuas. Especificamente, geramos os histogramas correspondentes.
+Ao fazer isso, o nosso objetivo é ter outra maneira de analisar a forma das
+distribuições.
+
 Como antes, criamos um par de figuras para cada variável. Uma delas representa a
 distribuição dos dados para os vinhos tintos e a outra está associada com os
 vinhos brancos.
 
+Alguns comentários sobre esses histogramas:
+
+- O número de barras em cada histograma foi escolhido com base em 2 regras.
+  Especificamente, em alguns casos usamos a regra de Freedman-Diaconis e nos
+  outros utilizamos a regra de Rice. Em todos os casos, a regra escolhida foi
+  aquela que produziu a "melhor" figura (com a "pior" figura sendo aquela que
+  mais se parece com um "pente quebrado").
+- Para uma mesma variável, ao plotar os 2 histogramas usamos diferentes números
+  de barras. Mais uma vez, o propósito era gerar as "melhores" figuras
+  possíveis.
+
 ```{r histograma_funcoes_largura}
 ## Função para calcular a largura ideal de cada barra do histograma. Esta
-## função está baseada na regra de Freedman–Diaconis.
+## função está baseada na regra de Freedman-Diaconis.
 calcula_binwidth_fd <- function(vetor_dados) {
 
   ## Calcula a amplitude interquartil
@@ -492,76 +512,120 @@ cria_histograma <- function(vinhos, coluna, rotulo, funcao_largura) {
 **Histograma da variável na coluna `fixed.acidity`:**
 
 ```{r histograma_fixed_acidity}
-## cria_histograma(vinhos, "fixed.acidity", "Fixed Acidity", calcula_binwidth_fd)
-cria_histograma(vinhos, "fixed.acidity", "Fixed Acidity", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "fixed.acidity",
+  "Fixed Acidity",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `volatile.acidity`:**
 
 ```{r histograma_volatile_acidity}
-## cria_histograma(vinhos, "volatile.acidity", "Volatile Acidity", calcula_binwidth_fd)
-cria_histograma(vinhos, "volatile.acidity", "Volatile Acidity", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "volatile.acidity",
+  "Volatile Acidity",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `citric.acid`:**
 
 ```{r histograma_citric_acid}
-## cria_histograma(vinhos, "citric.acid", "Citric Acid", calcula_binwidth_fd)
-cria_histograma(vinhos, "citric.acid", "Citric Acid", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "citric.acid",
+  "Citric Acid",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `residual.sugar`:**
 
 ```{r histograma_residual_sugar}
-## cria_histograma(vinhos, "residual.sugar", "Residual Sugar", calcula_binwidth_fd)
-cria_histograma(vinhos, "residual.sugar", "Residual Sugar", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "residual.sugar",
+  "Residual Sugar",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `chlorides`:**
 
 ```{r histograma_chlorides}
-## cria_histograma(vinhos, "chlorides", "Chlorides", calcula_binwidth_fd)
-cria_histograma(vinhos, "chlorides", "Chlorides", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "chlorides",
+  "Chlorides",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `free.sulfur.dioxide`:**
 
 ```{r histograma_free_sulfur_dioxide}
-## cria_histograma(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide", calcula_binwidth_fd)
-cria_histograma(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "free.sulfur.dioxide",
+  "Free Sulfur Dioxide",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `total.sulfur.dioxide`:**
 
 ```{r histograma_total_sulfur_dioxide}
-cria_histograma(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide", calcula_binwidth_fd)
-## cria_histograma(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "total.sulfur.dioxide",
+  "Total Sulfur Dioxide",
+  calcula_binwidth_fd
+)
 ```
 
 **Histograma da variável na coluna `density`:**
 
 ```{r histograma_density}
-## cria_histograma(vinhos, "density", "Density", calcula_binwidth_fd)
-cria_histograma(vinhos, "density", "Density", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "density",
+  "Density",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `ph`:**
 
 ```{r histograma_ph}
-## cria_histograma(vinhos, "ph", "pH", calcula_binwidth_fd)
-cria_histograma(vinhos, "ph", "pH", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "ph",
+  "pH",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `sulphates`:**
 
 ```{r histograma_sulphates}
-## cria_histograma(vinhos, "sulphates", "Sulphates", calcula_binwidth_fd)
-cria_histograma(vinhos, "sulphates", "Sulphates", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "sulphates",
+  "Sulphates",
+  calcula_binwidth_rice
+)
 ```
 
 **Histograma da variável na coluna `alcohol`:**
 
 ```{r histograma_alcohol}
-cria_histograma(vinhos, "alcohol", "Alcohol", calcula_binwidth_fd)
-## cria_histograma(vinhos, "alcohol", "Alcohol", calcula_binwidth_rice)
+cria_histograma(
+  vinhos,
+  "alcohol",
+  "Alcohol",
+  calcula_binwidth_fd
+)
 ```
