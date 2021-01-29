@@ -664,3 +664,107 @@ de qualidade média. Entretanto, a qualidade dos vinhos brancos no conjunto de
 dados tende a ser melhor. Proporcionalmente, tem mais vinhos desse tipo nas
 categorias associadas com uma qualidade mais alta. E a proporção de vinhos
 brancos na pior categoria observada é ligeiramente menor.
+
+**Distribuição das variáveis contínuas dentro de cada categoria**
+
+Na sequência, analisamos a distribuição das variáveis contínuas dentro de cada
+uma das categorias de qualidade observadas. Para entender o nosso propósito,
+considere qualquer uma dessas variáveis. O objetivo é responder às seguintes
+perguntas: entre os vinhos de péssima qualidade, como é a distribuição dessa
+variável? E entre os melhores vinhos?
+
+A resposta para essas questões pode ser visualizada através de uma série de
+boxplots.
+
+```{r boxplot_qualidade_funcao}
+## Função para criar os boxplots que consideram a qualidade dos vinhos. Além
+## dos dados, esta função recebe 2 strings, o nome da coluna e o rótulo do eixo
+## y.
+cria_boxplot_qualidade <- function(vinhos, coluna, rotulo) {
+
+  ggplot(
+    vinhos,
+    aes_string(
+      x = "quality",
+      y = coluna,
+      group = "quality"
+    )
+  ) +
+    geom_boxplot() +
+    labs(x = "Qualidade", y = rotulo) +
+    facet_wrap(vars(type), ncol = 1) +
+    theme_bw(base_size = 14) +
+    theme(
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank()
+    ) +
+    scale_x_continuous(breaks = seq(from = 3, to = 9, by = 1))
+
+}
+```
+
+**Boxplot da variável na coluna `fixed.acidity`:**
+
+```{r boxplot_qualidade_fixed_acidity}
+cria_boxplot_qualidade(vinhos, "fixed.acidity", "Fixed Acidity")
+```
+
+**Boxplot da variável na coluna `volatile.acidity`:**
+
+```{r boxplot_qualidade_volatile_acidity}
+cria_boxplot_qualidade(vinhos, "volatile.acidity", "Volatile Acidity")
+```
+
+**Boxplot da variável na coluna `citric.acid`:**
+
+```{r boxplot_qualidade_citric_acid}
+cria_boxplot_qualidade(vinhos, "citric.acid", "Citric Acid")
+```
+
+**Boxplot da variável na coluna `residual.sugar`:**
+
+```{r boxplot_qualidade_residual_sugar}
+cria_boxplot_qualidade(vinhos, "residual.sugar", "Residual Sugar")
+```
+
+**Boxplot da variável na coluna `chlorides`:**
+
+```{r boxplot_qualidade_chlorides}
+cria_boxplot_qualidade(vinhos, "chlorides", "Chlorides")
+```
+
+**Boxplot da variável na coluna `free.sulfur.dioxide`:**
+
+```{r boxplot_qualidade_free_sulfur_dioxide}
+cria_boxplot_qualidade(vinhos, "free.sulfur.dioxide", "Free Sulfur Dioxide")
+```
+
+**Boxplot da variável na coluna `total.sulfur.dioxide`:**
+
+```{r boxplot_qualidade_total_sulfur_dioxide}
+cria_boxplot_qualidade(vinhos, "total.sulfur.dioxide", "Total Sulfur Dioxide")
+```
+
+**Boxplot da variável na coluna `density`:**
+
+```{r boxplot_qualidade_density}
+cria_boxplot_qualidade(vinhos, "density", "Density")
+```
+
+**Boxplot da variável na coluna `ph`:**
+
+```{r boxplot_qualidade_ph}
+cria_boxplot_qualidade(vinhos, "ph", "pH")
+```
+
+**Boxplot da variável na coluna `sulphates`:**
+
+```{r boxplot_qualidade_sulphates}
+cria_boxplot_qualidade(vinhos, "sulphates", "Sulphates")
+```
+
+**Boxplot da variável na coluna `alcohol`:**
+
+```{r boxplot_qualidade_alcohol}
+cria_boxplot_qualidade(vinhos, "alcohol", "Alcohol")
+```

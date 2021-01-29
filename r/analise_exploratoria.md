@@ -577,3 +577,58 @@ brancos no conjunto de dados tende a ser melhor. Proporcionalmente, tem
 mais vinhos desse tipo nas categorias associadas com uma qualidade mais
 alta. E a proporção de vinhos brancos na pior categoria observada é
 ligeiramente menor.
+
+**Distribuição das variáveis contínuas dentro de cada categoria**
+
+Na sequência, analisamos a distribuição das variáveis contínuas dentro
+de cada uma das categorias de qualidade observadas. Para entender o
+nosso propósito, considere qualquer uma dessas variáveis. O objetivo é
+responder às seguintes perguntas: entre os vinhos de péssima qualidade,
+como é a distribuição dessa variável? E entre os melhores vinhos?
+
+A resposta para essas questões pode ser visualizada através de uma série
+de boxplots.
+
+**Boxplot da variável na coluna `fixed.acidity`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_fixed_acidity-1.png)
+
+**Boxplot da variável na coluna `volatile.acidity`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_volatile_acidity-1.png)
+
+**Boxplot da variável na coluna `citric.acid`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_citric_acid-1.png)
+
+**Boxplot da variável na coluna `residual.sugar`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_residual_sugar-1.png)
+
+**Boxplot da variável na coluna `chlorides`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_chlorides-1.png)
+
+**Boxplot da variável na coluna `free.sulfur.dioxide`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_free_sulfur_dioxide-1.png)
+
+**Boxplot da variável na coluna `total.sulfur.dioxide`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_total_sulfur_dioxide-1.png)
+
+**Boxplot da variável na coluna `density`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_density-1.png)
+
+**Boxplot da variável na coluna `ph`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_ph-1.png)
+
+**Boxplot da variável na coluna `sulphates`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_sulphates-1.png)
+
+**Boxplot da variável na coluna `alcohol`:**
+
+![](analise_exploratoria_files/figure-markdown_strict/boxplot_qualidade_alcohol-1.png)
