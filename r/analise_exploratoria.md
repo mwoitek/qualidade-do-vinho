@@ -531,3 +531,49 @@ tintos e a outra está associada com os vinhos brancos.
 **Histograma da variável na coluna `alcohol`:**
 
 ![](analise_exploratoria_files/figure-markdown_strict/histograma_alcohol-1.png)
+
+#### Qualidade
+
+Até o momento, levamos em consideração apenas as variáveis contínuas no
+conjunto de dados. Mas esse conjunto possui uma variável discreta
+bastante importante, a qualidade de cada vinho. Essa é a variável que
+mais tarde usaremos como rótulo (label) para treinar os nossos modelos
+de Machine Learning. Sendo assim, na sequência discutimos o que podemos
+aprender ao considerar a qualidade.
+
+É natural começar fazendo o seguinte questionamento: como os vinhos no
+conjunto de dados estão distribuídos de acordo com a qualidade? A
+próxima figura mostra o percentual de vinhos tintos em cada uma das
+categorias.
+
+![](analise_exploratoria_files/figure-markdown_strict/distribuicao_qualidade_tintos-1.png)
+
+No gráfico acima, incluímos apenas as categorias de qualidade que
+realmente aparecem nesse subconjunto dos dados. Por exemplo, entre os
+vinhos tintos, não há nenhum vinho que recebeu a nota 9. Por esse
+motivo, essa categoria foi omitida.
+
+O rótulo podia assumir qualquer valor inteiro desde 1 até 10. Mas a
+última figura deixa claro o seguinte: para os vinhos tintos, somente os
+valores entre 3 e 8 realmente ocorrem. Então nesse caso não temos 10
+categorias de qualidade e, sim, 6.
+
+Além disso, observe que a maioria dos vinhos tintos no conjunto de dados
+foi considerada de qualidade média. De fato, nesse caso os melhores
+vinhos e aqueles de péssima qualidade correspondem a uma pequena fração
+das observações.
+
+Em seguida, plotamos a figura análoga para os vinhos brancos:
+
+![](analise_exploratoria_files/figure-markdown_strict/distribuicao_qualidade_brancos-1.png)
+
+Perceba que mais uma vez o rótulo não assume todos os valores possíveis.
+No caso dos vinhos brancos, essa variável varia no intervalo desde 3 até
+9. Sendo assim, na prática temos apenas 7 categorias de qualidade.
+
+Como no caso dos vinhos tintos, grande parte dos vinhos brancos foi
+considerada de qualidade média. Entretanto, a qualidade dos vinhos
+brancos no conjunto de dados tende a ser melhor. Proporcionalmente, tem
+mais vinhos desse tipo nas categorias associadas com uma qualidade mais
+alta. E a proporção de vinhos brancos na pior categoria observada é
+ligeiramente menor.

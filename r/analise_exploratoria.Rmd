@@ -8,6 +8,7 @@ output: md_document
 ## Importa as bibliotecas necessárias
 library(dplyr)
 library(ggplot2)
+library(glue)
 library(knitr)
 library(magrittr)
 library(readr)
@@ -565,3 +566,101 @@ cria_histograma(vinhos, "sulphates", "Sulphates", calcula_binwidth_rice)
 cria_histograma(vinhos, "alcohol", "Alcohol", calcula_binwidth_fd)
 ## cria_histograma(vinhos, "alcohol", "Alcohol", calcula_binwidth_rice)
 ```
+
+#### Qualidade
+
+Até o momento, levamos em consideração apenas as variáveis contínuas no
+conjunto de dados. Mas esse conjunto possui uma variável discreta bastante
+importante, a qualidade de cada vinho. Essa é a variável que mais tarde
+usaremos como rótulo (label) para treinar os nossos modelos de Machine
+Learning. Sendo assim, na sequência discutimos o que podemos aprender ao
+considerar a qualidade.
+
+É natural começar fazendo o seguinte questionamento: como os vinhos no conjunto
+de dados estão distribuídos de acordo com a qualidade? A próxima figura mostra
+o percentual de vinhos tintos em cada uma das categorias.
+
+```{r distribuicao_qualidade_funcao}
+## Função para criar o gráfico de barra que mostra a distribuição dos vinhos de
+## acordo com a qualidade. Além dos dados, esta função recebe uma string
+## associada com o tipo de vinho.
+cria_barra_qualidade <- function(vinhos, tipo) {
+
+  ## Possibilidades para o argumento `tipo`
+  tipos <- c("Tintos", "Brancos")
+  if (!(tipo %in% tipos)) {
+    stop("tipo inválido")
+  }
+
+  ## Cria um tibble que armazena o percentual de vinhos associado com cada
+  ## categoria de qualidade
+  percentuais <-
+    vinhos %>%
+      filter(type == tipo) %>%
+      select(quality) %>%
+      group_by(quality) %>%
+      summarise(numero = n()) %>%
+      mutate(razao = numero / sum(numero)) %>%
+      select(!c(numero))
+
+  ## Usando o ggplot2, cria o gráfico de barra
+  ggplot(
+    percentuais,
+    aes(
+      x = quality,
+      y = razao,
+      label = scales::percent(razao)
+    )
+  ) +
+    geom_col() +
+    geom_text(vjust = -0.5) +
+    labs(
+      x = "Qualidade",
+      title = glue("Percentual de Vinhos {tipo} para cada Categoria")
+    ) +
+    theme_bw(base_size = 14) +
+    theme(
+      axis.title.y = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank()
+    ) +
+    scale_x_continuous(breaks = percentuais[["quality"]]) +
+    scale_y_continuous(labels = scales::percent)
+
+}
+```
+
+```{r distribuicao_qualidade_tintos}
+cria_barra_qualidade(vinhos, "Tintos")
+```
+
+No gráfico acima, incluímos apenas as categorias de qualidade que realmente
+aparecem nesse subconjunto dos dados. Por exemplo, entre os vinhos tintos, não
+há nenhum vinho que recebeu a nota 9. Por esse motivo, essa categoria foi
+omitida.
+
+O rótulo podia assumir qualquer valor inteiro desde 1 até 10. Mas a última
+figura deixa claro o seguinte: para os vinhos tintos, somente os valores entre
+3 e 8 realmente ocorrem. Então nesse caso não temos 10 categorias de qualidade
+e, sim, 6.
+
+Além disso, observe que a maioria dos vinhos tintos no conjunto de dados foi
+considerada de qualidade média. De fato, nesse caso os melhores vinhos
+e aqueles de péssima qualidade correspondem a uma pequena fração das
+observações.
+
+Em seguida, plotamos a figura análoga para os vinhos brancos:
+
+```{r distribuicao_qualidade_brancos}
+cria_barra_qualidade(vinhos, "Brancos")
+```
+
+Perceba que mais uma vez o rótulo não assume todos os valores possíveis. No
+caso dos vinhos brancos, essa variável varia no intervalo desde 3 até 9. Sendo
+assim, na prática temos apenas 7 categorias de qualidade.
+
+Como no caso dos vinhos tintos, grande parte dos vinhos brancos foi considerada
+de qualidade média. Entretanto, a qualidade dos vinhos brancos no conjunto de
+dados tende a ser melhor. Proporcionalmente, tem mais vinhos desse tipo nas
+categorias associadas com uma qualidade mais alta. E a proporção de vinhos
+brancos na pior categoria observada é ligeiramente menor.
