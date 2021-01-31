@@ -389,9 +389,37 @@ corresponde aos vinhos brancos.
 
 ![](analise_exploratoria_files/figure-markdown_strict/boxplot_fixed_acidity-1.png)
 
+Alguns comentários:
+
+-   Tanto para os vinhos brancos quanto para os tintos, observamos uma
+    grande quantidade de valores atípicos.
+-   No caso dos vinhos brancos, a figura acima indica que a distribuição
+    é essencialmente simétrica.
+-   No caso dos vinhos tintos, temos uma indicação de que a distribuição
+    é assimétrica. Especificamente, essa distribuição parece ter uma
+    cauda à direita.
+-   Esse boxplot mostra que a acidez fixa dos vinhos tintos tende a ser
+    mais elevada.
+-   Para os vinhos tintos, a dispersão dos dados é maior.
+
 **Boxplot da variável na coluna `volatile.acidity`:**
 
 ![](analise_exploratoria_files/figure-markdown_strict/boxplot_volatile_acidity-1.png)
+
+Alguns comentários:
+
+-   Para os dois tipos de vinho, observamos uma quantidade considerável
+    de valores atípicos. Mas claramente outliers ocorrem com mais
+    frequência no caso dos vinhos brancos.
+-   Temos indicações de que as duas distribuições são assimétricas,
+    ambas com uma cauda à direita.
+-   Para os vinhos brancos, a assimetria parece resultar quase que
+    exclusivamente da grande quantidade de outliers.
+-   No caso dos vinhos tintos, a acidez volátil tende a ser mais alta.
+    Além disso, os dados correspondentes estão mais dispersos.
+-   Um alto nível de acidez volátil é uma característica dos vinhos de
+    baixa qualidade. Então temos uma indicação de que os vinhos brancos
+    no conjunto de dados tendem a ser melhores do que os tintos.
 
 **Boxplot da variável na coluna `citric.acid`:**
 
@@ -446,9 +474,31 @@ violinos têm a mesma largura máxima.
 
 ![](analise_exploratoria_files/figure-markdown_strict/violin_fixed_acidity-1.png)
 
+Alguns comentários:
+
+-   Depois de criar o boxplot para essa variável, apresentamos algumas
+    hipóteses sobre a forma das distribuições. A figura acima parece
+    confirmar essas hipóteses.
+-   Especificamente:
+    -   Para os vinhos brancos, a distribuição é simétrica.
+    -   Para os vinhos tintos, a distribuição é assimétrica, com uma
+        cauda à direita.
+-   Esse violin plot indica que, nos dois casos, a distribuição é
+    unimodal.
+-   No caso dos vinhos brancos, essas observações sugerem que a acidez
+    fixa pode ser bem descrita usando uma distribuição normal.
+
 **Violin plot da variável na coluna `volatile.acidity`:**
 
 ![](analise_exploratoria_files/figure-markdown_strict/violin_volatile_acidity-1.png)
+
+Alguns comentários:
+
+-   Essa figura parece confirmar o que dissemos acima sobre a assimetria
+    das distribuições.
+-   Essa imagem parece indicar que, para os vinhos tintos, a
+    distribuição dessa variável é bimodal.
+-   Entretanto, no caso dos vinhos brancos, a distribuição é unimodal.
 
 **Violin plot da variável na coluna `citric.acid`:**
 
