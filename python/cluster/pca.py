@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.9.1
+#       jupytext_version: 1.10.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -20,16 +20,22 @@
 
 # %%
 from pathlib import Path
+import matplotlib.pyplot as plt
+# %matplotlib inline
 import pandas as pd
+from funcoes_cluster.funcoes_pca import imprime_variancia_explicada
+from funcoes_cluster.funcoes_pca import normaliza_dados
+from funcoes_cluster.funcoes_pca import plota_2d
+from funcoes_cluster.funcoes_pca import projeta_dados
 from funcoes_cluster.funcoes_pca import separa_tipo
-from funcoes_cluster.funcoes_pca import transforma_df_pd
-from funcoes_cluster.funcoes_pca import transforma_df_sk
 
 # %% [markdown]
 # ## Parâmetros
 
 # %%
 N_HEAD = 10
+TAM_AMOSTRA = 100
+plt.rcParams['figure.figsize'] = [12, 10]
 
 # %% [markdown]
 # ## Lendo o arquivo de dados
@@ -39,44 +45,55 @@ pasta_dados = Path('.').resolve().parents[1] / 'dados'
 arquivo = pasta_dados / 'vinhos.csv'
 
 vinhos_df = pd.read_csv(arquivo)
-vinhos_df.head(n=N_HEAD)
+vinhos_df.head(N_HEAD)
 
 # %% [markdown]
 # ## Separando os dados
 
 # %%
 tintos_df, qual_tintos = separa_tipo(vinhos_df, 'red')
-tintos_df.head(n=N_HEAD)
+tintos_df.head(N_HEAD)
 
 # %%
-qual_tintos.head(n=N_HEAD)
+qual_tintos.head(N_HEAD)
 
 # %%
 brancos_df, qual_brancos = separa_tipo(vinhos_df, 'white')
-brancos_df.head(n=N_HEAD)
+brancos_df.head(N_HEAD)
 
 # %%
-qual_brancos.head(n=N_HEAD)
+qual_brancos.head(N_HEAD)
 
 # %% [markdown]
-# ## Pré-processando os dados
+# ## Normalizando os dados
 
 # %%
-tintos_transf_pd = transforma_df_pd(tintos_df)
-tintos_transf_pd.head(n=N_HEAD)
+tintos_normal, _ = normaliza_dados(tintos_df)
+tintos_normal.head(N_HEAD)
 
 # %%
-tintos_transf_sk = transforma_df_sk(tintos_df)
-tintos_transf_sk.head(n=N_HEAD)
+brancos_normal, _ = normaliza_dados(brancos_df)
+brancos_normal.head(N_HEAD)
+
+# %% [markdown]
+# ## PCA: 2 Componentes Principais
 
 # %%
-brancos_transf_pd = transforma_df_pd(brancos_df)
-brancos_transf_pd.head(n=N_HEAD)
+tintos_proj_2d, pca_tintos = projeta_dados(2, tintos_normal, qual_tintos)
+tintos_proj_2d.head(N_HEAD)
 
 # %%
-brancos_transf_sk = transforma_df_sk(brancos_df)
-brancos_transf_sk.head(n=N_HEAD)
+imprime_variancia_explicada(pca_tintos)
 
 # %%
-pd.testing.assert_frame_equal(tintos_transf_pd, tintos_transf_sk)
-pd.testing.assert_frame_equal(brancos_transf_pd, brancos_transf_sk)
+plota_2d(tintos_proj_2d, TAM_AMOSTRA)
+
+# %%
+brancos_proj_2d, pca_brancos = projeta_dados(2, brancos_normal, qual_brancos)
+brancos_proj_2d.head(N_HEAD)
+
+# %%
+imprime_variancia_explicada(pca_brancos)
+
+# %%
+plota_2d(brancos_proj_2d, TAM_AMOSTRA)
