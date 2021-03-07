@@ -26,6 +26,7 @@ import pandas as pd
 from funcoes_cluster.funcoes_pca import imprime_variancia_explicada
 from funcoes_cluster.funcoes_pca import normaliza_dados
 from funcoes_cluster.funcoes_pca import plota_2d
+from funcoes_cluster.funcoes_pca import plota_3d
 from funcoes_cluster.funcoes_pca import projeta_dados
 from funcoes_cluster.funcoes_pca import separa_tipo
 
@@ -34,7 +35,7 @@ from funcoes_cluster.funcoes_pca import separa_tipo
 
 # %%
 N_HEAD = 10
-TAM_AMOSTRA = 100
+TAM_AMOSTRA = 150
 plt.rcParams['figure.figsize'] = [12, 10]
 
 # %% [markdown]
@@ -97,3 +98,43 @@ imprime_variancia_explicada(pca_brancos)
 
 # %%
 plota_2d(brancos_proj_2d, TAM_AMOSTRA)
+
+# %% [markdown]
+# ## PCA: 3 Componentes Principais
+
+# %%
+tintos_proj_3d, pca_tintos = projeta_dados(3, tintos_normal, qual_tintos)
+tintos_proj_3d.head(N_HEAD)
+
+# %%
+imprime_variancia_explicada(pca_tintos)
+
+# %%
+plota_3d(tintos_proj_3d, TAM_AMOSTRA)
+
+# %%
+brancos_proj_3d, pca_brancos = projeta_dados(3, brancos_normal, qual_brancos)
+brancos_proj_3d.head(N_HEAD)
+
+# %%
+imprime_variancia_explicada(pca_brancos)
+
+# %%
+plota_3d(brancos_proj_3d, TAM_AMOSTRA)
+
+# %% [markdown]
+# ## PCA: 7 Componentes Principais
+
+# %%
+tintos_proj_7d, pca_tintos = projeta_dados(7, tintos_normal, qual_tintos)
+tintos_proj_7d.head(N_HEAD)
+
+# %%
+imprime_variancia_explicada(pca_tintos)
+
+# %%
+brancos_proj_7d, pca_brancos = projeta_dados(7, brancos_normal, qual_brancos)
+brancos_proj_7d.head(N_HEAD)
+
+# %%
+imprime_variancia_explicada(pca_brancos)

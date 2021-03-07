@@ -106,3 +106,22 @@ def plota_2d(dados_proj, tam_amostra):
 
     ax.set_title('Dados Projetados em 2D')
     ax.legend()
+
+
+def plota_3d(dados_proj, tam_amostra):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    for qual_val, amostra_array in separa_amostra_dados_projetados(dados_proj, tam_amostra).items():
+        ax.scatter(amostra_array[:, 0], amostra_array[:, 1], amostra_array[:, 2], label=str(qual_val))
+
+    ax.set_xlabel('x_1')
+    ax.set_ylabel('x_2')
+    ax.set_zlabel('x_3')
+
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_zticks([])
+
+    ax.set_title('Dados Projetados em 3D')
+    ax.legend()
