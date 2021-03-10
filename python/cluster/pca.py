@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.10.2
+#       jupytext_version: 1.10.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -22,13 +22,13 @@
 from pathlib import Path
 import matplotlib.pyplot as plt
 # %matplotlib inline
+import numpy as np
 import pandas as pd
+from funcoes_cluster.funcoes_comuns import normaliza_dados
+from funcoes_cluster.funcoes_comuns import separa_tipo
 from funcoes_cluster.funcoes_pca import imprime_variancia_explicada
-from funcoes_cluster.funcoes_pca import normaliza_dados
-from funcoes_cluster.funcoes_pca import plota_2d
-from funcoes_cluster.funcoes_pca import plota_3d
+from funcoes_cluster.funcoes_pca import plota_dados_projetados
 from funcoes_cluster.funcoes_pca import projeta_dados
-from funcoes_cluster.funcoes_pca import separa_tipo
 
 # %% [markdown]
 # ## Parâmetros
@@ -36,6 +36,8 @@ from funcoes_cluster.funcoes_pca import separa_tipo
 # %%
 N_HEAD = 10
 TAM_AMOSTRA = 150
+
+np.random.seed(0)
 plt.rcParams['figure.figsize'] = [12, 10]
 
 # %% [markdown]
@@ -87,7 +89,7 @@ tintos_proj_2d.head(N_HEAD)
 imprime_variancia_explicada(pca_tintos)
 
 # %%
-plota_2d(tintos_proj_2d, TAM_AMOSTRA)
+plota_dados_projetados(tintos_proj_2d, TAM_AMOSTRA)
 
 # %%
 brancos_proj_2d, pca_brancos = projeta_dados(2, brancos_normal, qual_brancos)
@@ -97,7 +99,7 @@ brancos_proj_2d.head(N_HEAD)
 imprime_variancia_explicada(pca_brancos)
 
 # %%
-plota_2d(brancos_proj_2d, TAM_AMOSTRA)
+plota_dados_projetados(brancos_proj_2d, TAM_AMOSTRA)
 
 # %% [markdown]
 # ## PCA: 3 Componentes Principais
@@ -110,7 +112,7 @@ tintos_proj_3d.head(N_HEAD)
 imprime_variancia_explicada(pca_tintos)
 
 # %%
-plota_3d(tintos_proj_3d, TAM_AMOSTRA)
+plota_dados_projetados(tintos_proj_3d, TAM_AMOSTRA)
 
 # %%
 brancos_proj_3d, pca_brancos = projeta_dados(3, brancos_normal, qual_brancos)
@@ -120,7 +122,7 @@ brancos_proj_3d.head(N_HEAD)
 imprime_variancia_explicada(pca_brancos)
 
 # %%
-plota_3d(brancos_proj_3d, TAM_AMOSTRA)
+plota_dados_projetados(brancos_proj_3d, TAM_AMOSTRA)
 
 # %% [markdown]
 # ## PCA: 7 Componentes Principais

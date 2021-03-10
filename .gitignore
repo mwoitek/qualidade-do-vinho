@@ -1,2 +1,4 @@
 .Rhistory
+.ipynb_checkpoints/
+__pycache__/
 analise_exploratoria_cache/

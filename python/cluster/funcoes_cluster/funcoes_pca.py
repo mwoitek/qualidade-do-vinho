@@ -1,30 +1,8 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
-
-COL_QUAL = 'quality'
-COL_TIPO = 'type'
-
-np.random.seed(0)
-
-
-def separa_tipo(todos_dados, tipo):
-    feats = todos_dados[todos_dados[COL_TIPO] == tipo].drop(columns=COL_TIPO).reset_index(drop=True)
-
-    lbls = feats.pop(COL_QUAL)
-    lbls.name = None
-
-    return feats, lbls
-
-
-def normaliza_dados(dados):
-    scaler = StandardScaler().fit(dados)
-    dados_normal = scaler.transform(dados)
-
-    return pd.DataFrame(dados_normal, columns=dados.columns), scaler
+from .funcoes_comuns import separa_amostra_dados
+from .parametros import COL_QUAL
 
 
 def cria_objeto_pca(n_components, dados):
@@ -54,74 +32,34 @@ def imprime_variancia_explicada(pca):
     print(f'\nTotal:        {100 * total:.2f}%')
 
 
-def pega_valores_qualidade(qualidade):
-    return np.sort(qualidade.unique())
+def plota_dados_projetados(dados_proj, tam_amostra):
+    dim = dados_proj.shape[1] - 1
+    eh_3d = dim == 3
 
-
-def filtra_dados_projetados(dados_proj, qual_val):
-    return dados_proj[dados_proj[COL_QUAL] == qual_val].drop(columns=COL_QUAL).to_numpy()
-
-
-def separa_dados_projetados(dados_proj):
-    dados_separados = {}
-
-    for qual_val in pega_valores_qualidade(dados_proj[COL_QUAL]):
-        dados_separados[qual_val] = filtra_dados_projetados(dados_proj, qual_val)
-
-    return dados_separados
-
-
-def amostra_array_dados_projetados(array_dados_proj, tam_amostra):
-    num_obs = array_dados_proj.shape[0]
-
-    if num_obs <= tam_amostra:
-        return array_dados_proj
-    return array_dados_proj[np.random.choice(num_obs, size=tam_amostra, replace=False), :]
-
-
-def amostra_dados_separados(dados_sep, tam_amostra):
-    dados_sep_amostra = {}
-
-    for qual_val, array_dados_proj in dados_sep.items():
-        dados_sep_amostra[qual_val] = amostra_array_dados_projetados(array_dados_proj, tam_amostra)
-
-    return dados_sep_amostra
-
-
-def separa_amostra_dados_projetados(dados_proj, tam_amostra):
-    return amostra_dados_separados(separa_dados_projetados(dados_proj), tam_amostra)
-
-
-def plota_2d(dados_proj, tam_amostra):
-    _, ax = plt.subplots()
-
-    for qual_val, amostra_array in separa_amostra_dados_projetados(dados_proj, tam_amostra).items():
-        ax.scatter(amostra_array[:, 0], amostra_array[:, 1], label=str(qual_val))
-
-    ax.set_xlabel('x_1')
-    ax.set_ylabel('x_2')
-
-    ax.set_xticks([])
-    ax.set_yticks([])
-
-    ax.set_title('Dados Projetados em 2D')
-    ax.legend()
-
-
-def plota_3d(dados_proj, tam_amostra):
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
 
-    for qual_val, amostra_array in separa_amostra_dados_projetados(dados_proj, tam_amostra).items():
-        ax.scatter(amostra_array[:, 0], amostra_array[:, 1], amostra_array[:, 2], label=str(qual_val))
+    if eh_3d:
+        ax = fig.add_subplot(111, projection='3d')
+        coords = {'xs': None, 'ys': None, 'zs': None}
+    else:
+        ax = fig.add_subplot(111)
+        coords = {'x': None, 'y': None}
+
+    for qual_val, amostra_array in separa_amostra_dados(dados_proj, tam_amostra).items():
+        for i, coord in enumerate(coords):
+            coords[coord] = amostra_array[:, i]
+
+        ax.scatter(**coords, label=str(qual_val))
 
     ax.set_xlabel('x_1')
     ax.set_ylabel('x_2')
-    ax.set_zlabel('x_3')
 
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.set_zticks([])
 
-    ax.set_title('Dados Projetados em 3D')
+    if eh_3d:
+        ax.set_zlabel('x_3')
+        ax.set_zticks([])
+
+    ax.set_title(f'Dados Projetados em {dim}D')
     ax.legend()
